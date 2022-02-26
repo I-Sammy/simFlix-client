@@ -22744,7 +22744,6 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
-let imgPath = './img/';
 class MainView extends _reactDefault.default.Component {
     constructor(){
         super();
@@ -22754,7 +22753,7 @@ class MainView extends _reactDefault.default.Component {
                     _id: 1,
                     Title: 'Inception',
                     Description: 'Inception is a 2010 science fiction action film written and directed by Christopher Nolan, who also produced the film with Emma Thomas, his wife. The film stars Leonardo DiCaprio as a professional thief who steals information by infiltrating the subconscious of his targets.',
-                    ImagePath: imgPath + 'inception.png',
+                    ImagePath: 'https://en.wikipedia.org/wiki/Inception#/media/File:Inception_(2010)_theatrical_poster.jpg',
                     Genre: 'Action, Sci-fi',
                     Director: 'Christopher Nolan'
                 },
@@ -22762,7 +22761,7 @@ class MainView extends _reactDefault.default.Component {
                     _id: 2,
                     Title: 'Iron Man',
                     Description: 'Iron Man is a superhero appearing in American comic books published by Marvel Comics.',
-                    ImagePath: imgPath + 'ironman.png',
+                    ImagePath: 'https://en.wikipedia.org/wiki/Iron_Man_(2008_film)#/media/File:Iron_Man_(2008_film)_poster.jpg',
                     Genre: 'Action, Sci-fi',
                     Director: 'Jon Favreau'
                 },
@@ -22770,7 +22769,7 @@ class MainView extends _reactDefault.default.Component {
                     _id: 3,
                     Title: 'Maleficent',
                     Description: 'Maleficent (Angelina Jolie) rises to protect her peaceful forest kingdom from invaders, but a terrible betrayal turns her pure heart to stone and twists her into a creature bent on revenge.',
-                    ImagePath: imgPath + 'maleficent.png',
+                    ImagePath: 'https://en.wikipedia.org/wiki/Maleficent_(film)#/media/File:Maleficent_poster.jpg',
                     Genre: 'Action, Fantasy',
                     Director: 'Joachim Rønning'
                 }
@@ -22790,7 +22789,7 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 28
+                lineNumber: 29
             },
             __self: this,
             children: "The list is empty!"
@@ -22799,7 +22798,7 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 31
+                lineNumber: 32
             },
             __self: this,
             children: selectedMovie ? /*#__PURE__*/ _jsxRuntime.jsx(_movieView.MovieView, {
@@ -22809,7 +22808,7 @@ class MainView extends _reactDefault.default.Component {
                 },
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 34
+                    lineNumber: 35
                 },
                 __self: this
             }) : movies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
@@ -22819,7 +22818,7 @@ class MainView extends _reactDefault.default.Component {
                     },
                     __source: {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 36
+                        lineNumber: 37
                     },
                     __self: this
                 }, movie._id)
@@ -23058,6 +23057,7 @@ class MovieView extends _reactDefault.default.Component {
                         src: movie.ImagePath,
                         width: "300",
                         height: "400",
+                        alt: "Sorry! Cannot display the image.",
                         __source: {
                             fileName: "src/components/movie-view/movie-view.jsx",
                             lineNumber: 10
