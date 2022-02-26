@@ -24,7 +24,7 @@ export class MainView extends React.Component {
   }
   render() {
     const { movies, selectedMovie } = this.state;
-    if (selectedMovie) return <MovieView movie={selectedMovie} />;
+    //if (selectedMovie) return <MovieView movie={selectedMovie} />;
     if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
 
     return (
@@ -33,7 +33,7 @@ export class MainView extends React.Component {
         {selectedMovie
           ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
           : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }} />
+            <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(movie) }} />
           ))}
       </div>
     );
