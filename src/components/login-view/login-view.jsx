@@ -40,12 +40,13 @@ export class LoginView extends React.Component {
         <label>
           Username:
           <input type="text" value={this.state.username} onChange={this.onUsernameChange} />
-        </label>
+        </label><br></br>
         <label>
           Password:
           <input type="password" value={this.state.password} onChange={this.onPasswordChange} />
-        </label>
+        </label><br></br>
         <button type="button" onClick={this.handleSubmit}>Submit</button>
+        <a href="registration-view.scss">Click here to register!</a>
       </form>
     );
   }

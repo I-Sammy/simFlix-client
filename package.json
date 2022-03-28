@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/I-Sammy/simFlix-client#readme",
   "dependencies": {
-    "@parcel/transformer-sass": "^2.0.0-rc.0",
     "axios": "^0.26.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
