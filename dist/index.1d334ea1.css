@@ -1,0 +1,46 @@
+#chk {
+  display: none;
+}
+
+.login {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+label {
+  display: flex;
+  margin: 50px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+input {
+  width: 60%;
+  height: 20px;
+  background: #e0dede;
+  justify-content: center;
+  display: flex;
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-family: "Playfair", sans-serif;
+}
+
+#chk:checked ~ .signup label {
+  transform: scale(1);
+}
+
+#chk:checked ~ .login label {
+  transform: scale(0.6);
+}
+
+input[type=date] {
+  color: grey;
+}
+.sim-flix {
+  color: steelblue;
+}
+/*# sourceMappingURL=index.1d334ea1.css.map */

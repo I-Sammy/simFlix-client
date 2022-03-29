@@ -1,53 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export class LoginView extends React.Component {
-  constructor(props) {
-    super(props);
+// Login stylesheet
+import './login-view.scss';
 
-    this.state = {
-      username: '',
-      password: ''
-    };
+export function LoginView(props) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
-    this.onUsernameChange = this.onUsernameChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  onUsernameChange(event) {
-    this.setState({
-      username: event.target.value
-    });
-  }
-
-  onPasswordChange(event) {
-    this.setState({
-      password: event.target.value
-    });
-  }
-
-  handleSubmit() {
-    const { username, password } = this.state;
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log(username, password);
     /* Send a request to the server for authentication */
-    /* then call this.props.onLoggedIn(username) */
-    this.props.onLoggedIn(username);
-  }
+    /* then call props.onLoggedIn(username) */
+    props.onLoggedIn(username);
+  };
+  return (
 
-  render() {
-    return (
-      <form>
-        <label>
-          Username:
-          <input type="text" value={this.state.username} onChange={this.onUsernameChange} />
-        </label><br></br>
-        <label>
-          Password:
-          <input type="password" value={this.state.password} onChange={this.onPasswordChange} />
-        </label><br></br>
-        <button type="button" onClick={this.handleSubmit}>Submit</button>
-        <a href="registration-view.scss">Click here to register!</a>
-      </form>
-    );
-  }
+    < div className="main" >
+
+      <input type="checkbox" id="chk" aria-hidden="true" />
+      <div className="login">
+        <form>
+          <label htmlFor="chk" aria-hidden="true">Log into SimFlix</label>
+          <input type="text" name="txt" placeholder="User Name" value={username} onChange={e => setUsername(e.target.value)} required="" />
+          <input type="password" name="pswd" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required="" />
+
+          <button type="submit" onClick={handleSubmit}>Login</button>
+        </form>
+      </div>
+      <div className="signup">
+        <form>
+          <label htmlFor="chk" aria-hidden="true">Sign up</label>
+          <input type="text" name="txt" placeholder="User Name" value={username} onChange={e => setUsername(e.target.value)} required="" />
+          <input type="email" name="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required=""></input>
+          <input type="password" name="pswd" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required="" />
+          <input type="date" name="dateofbirth" placeholder="mm/dd/yy" id="dateofbirth" />
+
+          <button type="submit" onClick={handleSubmit}>Sign up</button>
+        </form>
+      </div>
+    </div>
+
+
+  );
 }
