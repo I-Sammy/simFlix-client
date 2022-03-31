@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 // Login stylesheet
 import './login-view.scss';
@@ -6,7 +9,7 @@ import './login-view.scss';
 export function LoginView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  //const [email, setEmail] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,33 +18,29 @@ export function LoginView(props) {
     /* then call props.onLoggedIn(username) */
     props.onLoggedIn(username);
   };
+
   return (
-
-    < div className="main" >
-
-      <input type="checkbox" id="chk" aria-hidden="true" />
-      <div className="login">
-        <form>
-          <label htmlFor="chk" aria-hidden="true">Log into SimFlix</label>
-          <input type="text" name="txt" placeholder="User Name" value={username} onChange={e => setUsername(e.target.value)} required="" />
-          <input type="password" name="pswd" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required="" />
-
-          <button type="submit" onClick={handleSubmit}>Login</button>
-        </form>
-      </div>
-      <div className="signup">
-        <form>
-          <label htmlFor="chk" aria-hidden="true">Sign up</label>
-          <input type="text" name="txt" placeholder="User Name" value={username} onChange={e => setUsername(e.target.value)} required="" />
-          <input type="email" name="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required=""></input>
-          <input type="password" name="pswd" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required="" />
-          <input type="date" name="dateofbirth" placeholder="mm/dd/yy" id="dateofbirth" />
-
-          <button type="submit" onClick={handleSubmit}>Sign up</button>
-        </form>
-      </div>
+    <><div id="page-headers">
+      <h3>Welcome to simFlix!</h3>
+      <p>Please log in to access the movie hub.</p>
     </div>
+      <Form id="login-form">
+        <Form.Group controlId="formUsername">
+          <Form.Label>Username:</Form.Label>
+          <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
+        </Form.Group>
 
-
+        <Form.Group controlId="formPassword">
+          <Form.Label>Password:</Form.Label>
+          <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
+        </Form.Group>
+        <Button id="login-button" variant="primary" type="submit" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </Form>
+      <div><br />
+        <span id="page-labels">Want to create an account?</span><br />
+        <button type="submit">Register Here</button>
+      </div></>
   );
 }

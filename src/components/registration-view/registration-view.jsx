@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
+import './registration-view.scss';
 
 
 
@@ -10,7 +13,7 @@ export function RegisterView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birhday);
+    console.log(username, password, email, birthday);
     /* Send a request to the server for authentication */
     /* then call props.onLoggedIn(username) */
     props.onRegistration(username);
@@ -37,4 +40,8 @@ export function RegisterView(props) {
       <button type="submit" onClick={handleSubmit}>Register</button>
     </form>
   );
-} 
+}
+
+RegistrationView.propTypes = {
+  onRegister: PropTypes.func.isRequired
+};
