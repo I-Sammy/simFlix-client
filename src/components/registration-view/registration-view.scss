@@ -1,5 +1,11 @@
-// $buttonColor: rgb(48, 26, 41);
-
-// button {
-//   color: $buttonColor;
-// }
+$buttonColor: rgb(158, 138, 152);
+body{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-family: 'Playfair', sans-serif;
+	background: linear-gradient(to bottom, #2c1226, #99537a, #500332);
+}
