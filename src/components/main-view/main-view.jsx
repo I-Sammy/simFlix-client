@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import { Navbar } from '../navbar/navbar';
+import { NavbarView } from '../navbar/navbar';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { ProfileView } from '../profile-view/profile-view';
@@ -96,7 +96,7 @@ export class MainView extends React.Component {
     return (
 
       <Router>
-        < Navbar user={user} />
+        < NavbarView user={user} />
         <Container>
           <Row className="main-view justify-content-md-center">
             <Route exact path="/" render={() => {
@@ -116,15 +116,21 @@ export class MainView extends React.Component {
 
               ))
             }} />
-
+            <Route path="/" />
             <Route path="/register" render={() => {
+              if (user) return <Redirect to="/movies" />
+              return <Col>
+                <RegistrationView />
+              </Col>
+            }} />
+            {/* <Route path="/register" render={() => {
               if (user) return <Redirect to="/" />
               return (
                 <Col xs={12} md={8}>
                   <RegistrationView />
                 </Col>
               )
-            }} />
+            }} /> */}
 
             <Route path="/movies/:movieId" render={({ match, history }) => {
               return <Col md={8}>

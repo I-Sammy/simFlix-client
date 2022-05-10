@@ -61,7 +61,7 @@ export function RegistrationView(props) {
           const data = response.data;
           console.log(data);
           window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
-          //alert('Registration successful! Please login to access the website.');
+          alert('Registration successful! Please login to access the website.');
         })
         .catch(e => {
           console.log('Could not register');
@@ -94,7 +94,7 @@ export function RegistrationView(props) {
 
         <Form.Group controlId="formBirthday" className="mb-3">
           <Form.Label>Birthday:</Form.Label>
-          <Form.Control type="date" onChange={e => setBirthDate(e.target.value).format('DD-MM-YYYY')} />
+          <Form.Control type="date" onChange={e => setBirthDate(e.target.value)} />
         </Form.Group>
 
         <Button variant="primary" type="submit" onClick={handleSubmit}>
@@ -111,6 +111,6 @@ export function RegistrationView(props) {
   );
 }
 
-RegistrationView.propTypes = {
-  onRegister: PropTypes.func.isRequired
-};
+// RegistrationView.propTypes = {
+//   onRegister: PropTypes.func
+// };
