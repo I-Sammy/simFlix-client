@@ -16,19 +16,19 @@ label {
 }
 
 #login-button {
-  background-color: #9e8a98;
+  background-color: rgb(158, 138, 152);
   border: none;
-  color: black;
+  color: rgb(0, 0, 0);
   margin-top: 10px;
 }
 
 #page-headers {
-  color: #eee8e8;
+  color: rgb(238, 232, 232);
   font-weight: bolder;
 }
 
 #page-labels {
-  color: #eee8e8;
+  color: rgb(238, 232, 232);
   font-weight: bolder;
 }
 body {
@@ -36,7 +36,7 @@ body {
 }
 
 button {
-  background-color: #ebd9e5;
+  background-color: rgb(235, 217, 229);
   color: black;
 }
 .movie-view {
