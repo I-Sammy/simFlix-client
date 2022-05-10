@@ -16,27 +16,38 @@ label {
 }
 
 #login-button {
-  background-color: #9e8a98;
+  background-color: rgb(158, 138, 152);
   border: none;
-  color: black;
+  color: rgb(0, 0, 0);
   margin-top: 10px;
 }
 
 #page-headers {
-  color: #eee8e8;
+  color: rgb(238, 232, 232);
   font-weight: bolder;
 }
 
 #page-labels {
-  color: #eee8e8;
+  color: rgb(238, 232, 232);
   font-weight: bolder;
 }
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: "Playfair", sans-serif;
+  background: linear-gradient(to bottom, #2c1226, #99537a, #500332);
+}
+
 body {
   color: black;
 }
 
 button {
-  background-color: #ebd9e5;
+  background-color: rgb(235, 217, 229);
   color: black;
 }
 .movie-view {
@@ -47,6 +58,14 @@ button {
 .movie-poster {
   display: flex;
   justify-content: center;
+}
+#director-view {
+  color: black;
+  background-color: rgba(182, 101, 148, 0.301);
+}
+#genre-view {
+  color: black;
+  background-color: rgba(182, 101, 148, 0.301);
 }
 
 
