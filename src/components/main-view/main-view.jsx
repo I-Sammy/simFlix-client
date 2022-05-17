@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { setMovies } from '../../actions/actions';
+import MoviesList from '../movies-list/movies-list';
 import { NavbarView } from '../navbar/navbar';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -14,14 +17,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './main-view.scss';
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
 
   constructor() {
     super();
     // Initial state is set to null
     this.state = {
-      movies: [],
-      //selectedMovie: null,
       user: null
     };
   }
@@ -43,17 +44,21 @@ export class MainView extends React.Component {
       this.getMovies(accessToken);
     }
   }
-  /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
-  /*setSelectedMovie(newSelectedMovie) {
-    this.setState({
-      selectedMovie: newSelectedMovie
-    });
+
+
+  getMovies(token) {
+    axios.get('https://zoehime.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        //const { setMovies } = this.props;
+        //setMovies(response.data);
+        this.props.setMovies(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
-  setSelectedMovie(movie) {
-    this.setState({
-      selectedMovie: movie
-    });
-  }*/
 
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
 
@@ -76,23 +81,11 @@ export class MainView extends React.Component {
     });
   }
 
-  getMovies(token) {
-    axios.get('https://zoehime.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(response => {
-        // Assign the result to the state
-        this.setState({
-          movies: response.data
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+
 
   render() {
-    const { movies, user } = this.state;
+    let { movies } = this.props;
+    let { user } = this.state;
     return (
 
       <Router>
@@ -107,15 +100,16 @@ export class MainView extends React.Component {
               )
               // If movie list is empty (while movies load from API), display empty page
               if (movies.length === 0) return <div className="main-view" />;
-
-              return movies.map(m => (
+              return <MoviesList movies={movies} />;
+            }} />
+            {/* return movies.map(m => (
                 <Col xs={12} sm={6} md={4} lg={3} className="d-flex" key={m._id}>
                   <MovieCard movie={m} />
                 </Col>
 
 
               ))
-            }} />
+            }} /> */}
             <Route path="/" />
             <Route path="/register" render={() => {
               if (user) return <Redirect to="/movies" />
@@ -123,14 +117,6 @@ export class MainView extends React.Component {
                 <RegistrationView />
               </Col>
             }} />
-            {/* <Route path="/register" render={() => {
-              if (user) return <Redirect to="/" />
-              return (
-                <Col xs={12} md={8}>
-                  <RegistrationView />
-                </Col>
-              )
-            }} /> */}
 
             <Route path="/movies/:movieId" render={({ match, history }) => {
               return <Col md={8}>
@@ -200,4 +186,8 @@ export class MainView extends React.Component {
     //);
   }
 }
-export default MainView;
+
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+export default connect(mapStateToProps, { setMovies })(MainView);
