@@ -19,9 +19,9 @@ class SimFlixApplication extends React.Component {
   render() {
     return (
       <Provider store={store}>
-
-        <MainView />
-
+        <Container>
+          <MainView />
+        </Container>
       </Provider>
     );
   }
