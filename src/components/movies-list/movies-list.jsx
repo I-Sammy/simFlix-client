@@ -1,4 +1,5 @@
 import React from 'react';
+import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { connect } from 'react-redux';
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
@@ -20,14 +21,20 @@ function MoviesList(props) {
   if (!movies) return <div className="main-view" />;
 
   return <>
-    <Col md={12} style={{ margin: '1em' }}>
-      <VisibilityFilterInput visibilityFilter={visibilityFilter} />
-    </Col>
-    {filteredMovies.map(m => (
-      <Col md={3} key={m._id}>
-        <MovieCard movie={m} />
-      </Col>
-    ))}
+    <div className="movie-list">
+      <div className="row">
+        <Col md={12} style={{ margin: '1em' }}>
+          <VisibilityFilterInput visibilityFilter={visibilityFilter} />
+        </Col>
+        {filteredMovies.map(m => (
+
+          <Col xs={12} sm={8} md={3} lg={2} className="d-flex" key={m._id}>
+            <MovieCard movie={m} />
+          </Col>
+        ))}
+      </div>
+    </div>
+
   </>;
 }
 

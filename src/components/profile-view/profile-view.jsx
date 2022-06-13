@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { setUser } from '../../actions/actions';
 import './profile-view.scss';
 import { Link } from 'react-router-dom';
 import { Container, Card, Button, Row, Col, Form } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import MainView from "../main-view/main-view";
 
 export class ProfileView extends React.Component {
   constructor() {
@@ -96,7 +99,7 @@ export class ProfileView extends React.Component {
 
     axios
       .delete(
-        `https://zoehime.herokuapp.com/users/${Username}/movies/${movie._id}`,
+        `https://zoehime.herokuapp.com/users/${Username}/${movie._id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -239,7 +242,7 @@ export class ProfileView extends React.Component {
         </Row>
         <Row style={{ marginTop: "20px" }}>
           <Col>
-            <h4>{Username} Favorite Movies</h4>
+            <h4>{Username}'s Favorite Movies</h4>
           </Col>
         </Row>
         <Row>
@@ -256,16 +259,15 @@ export class ProfileView extends React.Component {
                       FavoriteMovies.find((fav) => fav === movie._id)
                     ) {
                       return (
-                        <Card className="favorite-movie card-content" key={movie._id} >
-                          <Card.Img
-                            className="fav-poster"
-                            variant="top"
-                            src={movie.ImagePath}
-                          />
+
+                        <Card className="favorite-movie-card-content" key={movie._id}>
                           <Card.Body style={{ backgroundColor: "black" }}>
                             <Card.Title className="movie_title">
                               {movie.Title}
                             </Card.Title>
+                            <Link to={`/movies/${movie._id}`}>
+                              <Button variant="link">Open</Button>
+                            </Link>
                             <Button size="sm" variant="danger" value={movie._id} onClick={(e) => this.onRemoveFavorite(e, movie)}>Remove</Button>
                           </Card.Body>
                         </Card>

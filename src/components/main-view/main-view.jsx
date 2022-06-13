@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser, setFavorites, setDirectors, setGenres, } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 import { NavbarView } from '../navbar/navbar';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { ProfileView } from '../profile-view/profile-view';
-import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
@@ -26,16 +25,8 @@ class MainView extends React.Component {
       user: null
     };
   }
+
   componentDidMount() {
-    // axios.get('https://zoehime.herokuapp.com/movies')
-    //   .then(response => {
-    //     this.setState({
-    //       movies: response.data
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       this.setState({
@@ -51,9 +42,10 @@ class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        //const { setMovies } = this.props;
-        //setMovies(response.data);
-        this.props.setMovies(response.data);
+        //this.setMovies(response.data);
+        this.setState({
+          movies: response.data
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -81,11 +73,35 @@ class MainView extends React.Component {
     });
   }
 
+  // Delete account
+  onDeleteUser() {
+    const Username = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
+    axios
+      .delete(`https://zoehime.herokuapp.com/users/${Username}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        this.setState({
+          user: null,
+        });
+        alert("Profile deleted");
+        window.open("/", "_self");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   render() {
-    let { movies } = this.props;
-    let { user } = this.state;
+    //let { movies } = this.props;
+    //let { user } = this.state;
+    const { movies, user } = this.state;
     return (
 
       <Router>
@@ -94,32 +110,26 @@ class MainView extends React.Component {
           <Row className="main-view justify-content-md-center">
             <Route exact path="/" render={() => {
               if (!user) return (
-                <Col md={6}>
+                <Col>
                   <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                 </Col>
               )
               // If movie list is empty (while movies load from API), display empty page
-              if (movies.length === 0) return <div className="main-view" />;
+              //if (movies.length === 0) return <div className="main-view" />;
               return <MoviesList movies={movies} />;
             }} />
-            {/* return movies.map(m => (
-                <Col xs={12} sm={6} md={4} lg={3} className="d-flex" key={m._id}>
-                  <MovieCard movie={m} />
-                </Col>
 
-
-              ))
-            }} /> */}
             <Route path="/" />
             <Route path="/register" render={() => {
               if (user) return <Redirect to="/movies" />
-              return <Col>
+              return <Col lg={8} md={8}>
                 <RegistrationView />
               </Col>
             }} />
 
             <Route path="/movies/:movieId" render={({ match, history }) => {
-              return <Col md={8}>
+              if (!user) return <Redirect to="/" />
+              return <Col>
                 <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
               </Col>
             }} />
@@ -164,30 +174,27 @@ class MainView extends React.Component {
         </Container>
       </Router>
 
-      // <div className="main-view">
-      //   {/*If the state of `selectedMovie` is not null, that selected movie will be returned otherwise, all *movies will be returned*/}
-      //   <Row className="main-view justify-content-md-center">
-      //     {selectedMovie
-      //       ? (
-      //         <Col md={8}>
-      //           <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
-      //         </Col>
-      //       )
-      //       :
-      //       movies.map(movie => (
-      //         <Col md={4}>
-      //           <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }} />
-      //         </Col>
-      //       ))
-      //     }</Row>
+
     );
     <button onClick={() => { this.onLoggedOut() }}>Logout</button>
-    //</div>
-    //);
+
   }
 }
 
 let mapStateToProps = state => {
-  return { movies: state.movies }
+  return { movies: state.movies, user: state.user }
 }
-export default connect(mapStateToProps, { setMovies })(MainView);
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setUser: (user) => {
+      dispatch(setUser(user))
+    },
+    setMovies: (movies) => {
+      dispatch(setMovies(movies))
+    }
+  }
+}
+
+//export default connect(mapStateToProps, { setMovies, setUser })(MainView);
+export default connect(mapStateToProps, mapDispatchToProps)(MainView);
