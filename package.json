@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Client side code for simFlix web app",
   "entry": "src/index.html",
+  "source": "src/index.html",
   "scripts": {
+    "start": "parcel",
+    "build": "parcel build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel index.html"
   },
@@ -19,7 +22,6 @@
   "homepage": "https://github.com/I-Sammy/simFlix-client#readme",
   "dependencies": {
     "axios": "^0.26.0",
-    "parcel": "^2.0.0-rc.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.2.2",
@@ -28,5 +30,10 @@
     "react-router-dom": "^5.3.0",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.0",
+    "parcel": "^2.6.0",
+    "process": "^0.11.10"
   }
 }
